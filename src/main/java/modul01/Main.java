@@ -1,5 +1,6 @@
 package modul01;
 
+import java.io.*;
 import java.util.Collection;
 
 public class Main {
@@ -38,7 +39,16 @@ public class Main {
 
         OutResult outResult = new OutResult(createResult.getResultCollections());
 
-        outResult.consoleOut();
+        try {
+            FileOutputStream fileOut = new FileOutputStream("table.txt");
+
+            PrintStream printFile = new PrintStream(fileOut);
+
+            outResult.resultOut(System.out);
+            outResult.resultOut(printFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

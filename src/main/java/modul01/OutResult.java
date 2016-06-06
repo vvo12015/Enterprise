@@ -1,5 +1,8 @@
 package modul01;
 
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,27 +22,27 @@ public class OutResult {
         this.result = result;
     }
 
-    public void consoleOut(){
+    public void resultOut(PrintStream out){
 
-        System.out.print("\t" + "Collections\\Methods" + "|");
+        out.print("\t" + "Collections\\Methods" + "|");
 
         for (int i = 0; i < Methods.values().length; i++) {
-            System.out.print("\t" + Methods.values()[i] + "|");
+            out.print("\t" + Methods.values()[i] + "|");
         }
 
-        System.out.println();
+        out.println();
 
         for (int i = 0; i < ComparatorListVsSet.COUNT_SIZES_OF_COLLECTIONS; i++) {
 
             for (Map.Entry<String, HashMap<String, Long[]>> entry: result.entrySet()) {
-                System.out.print("\t" + entry.getKey() + "|");
+                out.print("\t" + entry.getKey() + "|");
                 for (Map.Entry<String, Long[]> entryValue: entry.getValue().entrySet()){
-                    System.out.print("\t" + entryValue.getValue()[i]);
+                    out.print("\t" + entryValue.getValue()[i]);
                 }
-                System.out.println();
+                out.println();
             }
-            System.out.println();
-            System.out.println();
+            out.println();
+            out.println();
         }
 
     }
