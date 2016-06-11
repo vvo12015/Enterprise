@@ -17,12 +17,9 @@ public class LatchBootstrap {
             new Thread(new Worker()).start();
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (countDownLatch.getCounter() > 0){
-                    countDownLatch.countDown();
-                }
+        new Thread(() -> {
+            while (countDownLatch.getCounter() > 0){
+                countDownLatch.countDown();
             }
         }).start();
     }

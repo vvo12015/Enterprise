@@ -12,14 +12,15 @@ public class CountDownLatch {
 
     public void await() throws InterruptedException {
             synchronized (lock) {
-                if (counter > 0) {
-                    lock.wait();
-                }
+                    if (counter > 0) {
+                        lock.wait();
+                    }
             }
     }
 
     public void countDown(){
         synchronized (lock) {
+
             if (counter > 0) {
                 counter--;
                 System.out.println("Counter = " + counter);
