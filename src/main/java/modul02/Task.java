@@ -6,6 +6,6 @@ public interface Task<T> {
     void execute();
 
     // Возвращает результат выполнения
-    T getResult();
+    T getResult() throws IllegalStateException;
 
 }

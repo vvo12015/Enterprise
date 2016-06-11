@@ -1,17 +1,24 @@
 package modul02;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Test {
+public class Main {
 
-    public void test(List<Task<Integer>> intTasks) {
+    public static void main(String[] args) {
+        List<Task<Integer>> intTasks = new ArrayList<>();
+
+
+    }
+
+    public static void test(List<Task<Integer>> intTasks) {
 
         Executor<Number> numberExecutor = new ExecutorImpl();
 
         for (Task<Integer> intTask : intTasks) {
             numberExecutor.addTask(intTask);
         }
-        numberExecutor.addTask(new LongTask(10L), new NumberValidator());
+//        numberExecutor.addTask(new LongTask(10L), new NumberValidator());
 
         numberExecutor.execute();
 

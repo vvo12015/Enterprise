@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ExecutorImpl implements Executor<Number> {
 
-    List<Task<Number>> validTasks;
-    List<Task<Number>> invalidTasks;
-    List<Number> validResults;
-    List<Number> invalidResults;
+    List<Task<? extends Number>> validTasks;
+    List<Task<? extends Number>> invalidTasks;
+    List<? extends Number> validResults;
+    List<? extends Number> invalidResults;
 
     public ExecutorImpl() {
         this.validTasks = new ArrayList<>();
@@ -18,55 +18,59 @@ public class ExecutorImpl implements Executor<Number> {
     }
 
     @Override
-    public void addTask(Task<Number> task) {
+    public void addTask(Task<? extends Number> task) throws IllegalStateException {
         validTasks.add(task);
     }
 
     @Override
-    public void addTask(Task<Number> task, Validator<Number> validator) {
-        if (validator.isValid(task.getResult())){
+    public void addTask(Task<? extends Number> task, Validator<? super Number> validator) throws IllegalStateException {
+        if (validator.isValid(task.getResult())) {
             validTasks.add(task);
-        }else {
+        } else {
             invalidTasks.add(task);
         }
     }
 
-    @Override
-    public void execute() {
-
+    public void execute() throws IllegalStateException {
+        for (Task<? extends Number> task :
+                validTasks) {
+            task.execute();
+        }
+        for (Task<? extends Number> task :
+                invalidTasks) {
+            task.execute();
+        }
     }
 
-    public List<Task<Number>> getValidTasks() {
+    public List<Task<? extends Number>> getValidTasks() {
         return validTasks;
     }
 
-    public void setValidTasks(List<Task<Number>> validTasks) {
+    public void setValidTasks(List<Task<? extends Number>> validTasks) {
         this.validTasks = validTasks;
     }
 
-    public List<Task<Number>> getInvalidTasks() {
+    public List<Task<? extends Number>> getInvalidTasks() {
         return invalidTasks;
     }
 
-    public void setInvalidTasks(List<Task<Number>> invalidTasks) {
+    public void setInvalidTasks(List<Task<? extends Number>> invalidTasks) {
         this.invalidTasks = invalidTasks;
     }
 
-    @Override
-    public List<Number> getValidResults() {
+    public List<? extends Number> getValidResults() {
         return validResults;
     }
 
-    public void setValidResults(List<Number> validResults) {
+    public void setValidResults(List<? extends Number> validResults) {
         this.validResults = validResults;
     }
 
-    @Override
-    public List<Number> getInvalidResults() {
+    public List<? extends Number> getInvalidResults() {
         return invalidResults;
     }
 
-    public void setInvalidResults(List<Number> invalidResults) {
+    public void setInvalidResults(List<? extends Number> invalidResults) {
         this.invalidResults = invalidResults;
     }
 }
