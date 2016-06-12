@@ -1,4 +1,4 @@
-package modul01;
+package module01;
 
 import java.util.Collection;
 import java.util.List;

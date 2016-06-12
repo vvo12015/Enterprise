@@ -1,4 +1,4 @@
-package modul02;
+package module02;
 
 public interface Task<T> {
 

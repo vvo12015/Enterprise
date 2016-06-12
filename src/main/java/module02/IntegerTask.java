@@ -1,4 +1,4 @@
-package modul02;
+package module02;
 
 public class IntegerTask implements Task<Integer> {
 

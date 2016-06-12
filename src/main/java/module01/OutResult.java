@@ -1,7 +1,5 @@
-package modul01;
+package module01;
 
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
