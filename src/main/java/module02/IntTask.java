@@ -29,7 +29,7 @@ public class IntTask implements Task<Integer>{
         this.result = result;
     }
 
-    private boolean isOn() {
+    public boolean isOn() {
         return on;
     }
 
@@ -40,18 +40,18 @@ public class IntTask implements Task<Integer>{
     public IntTask(IntUnaryOperator function, int argument) {
         this.function = function;
         this.argument = argument;
-        on = false;
+        this.on = false;
     }
 
     @Override
     public void execute() {
-        result = function.applyAsInt(argument);
-        on = true;
+        this.result = function.applyAsInt(argument);
+        this.on = true;
     }
 
     @Override
     public Integer getResult() throws IllegalStateException {
-        if (on) return result;
+        if (this.isOn()) return result;
         else throw new IllegalStateException("Task is not running");
     }
 }

@@ -2,75 +2,108 @@ package module02;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ExecutorImpl implements Executor<Number> {
 
-    List<Task<? extends Number>> validTasks;
-    List<Task<? extends Number>> invalidTasks;
-    List<? extends Number> validResults;
-    List<? extends Number> invalidResults;
+
+    private class TasksForValid{
+        private Task<? extends Number> task;
+        private Validator<? super Number> validator;
+
+        public TasksForValid(Task<? extends Number> task, Validator<? super Number> validator) {
+            this.task = task;
+            this.validator = validator;
+        }
+
+        public TasksForValid(Task<? extends Number> task) {
+            this.task = task;
+            this.validator = new Validator<Number>() {
+                @Override
+                public boolean isValid(Number result) {
+                    return true;
+                }
+            };
+        }
+
+        public Task<? extends Number> getTask() {
+            return task;
+        }
+
+        private void setTask(Task<? extends Number> task) {
+            this.task = task;
+        }
+
+        public Validator<? super Number> getValidator() {
+            return validator;
+        }
+
+        public void setValidator(Validator<? super Number> validator) {
+            this.validator = validator;
+        }
+    }
+
+    private List<TasksForValid> tasks;
+    private List<? extends Number> validResults;
+    private List<? extends Number> invalidResults;
+    private boolean on;
+
+    private List<TasksForValid> getTasks() {
+        return tasks;
+    }
+
+    private boolean isOn() {
+        return on;
+    }
+
+    private void setOn(boolean on) {
+        this.on = on;
+    }
 
     public ExecutorImpl() {
-        this.validTasks = new ArrayList<>();
-        this.invalidTasks = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         this.validResults = new ArrayList<>();
         this.invalidResults = new ArrayList<>();
     }
 
     @Override
     public void addTask(Task<? extends Number> task) throws IllegalStateException {
-        validTasks.add(task);
+        if (!isOn()) {
+            tasks.add(new TasksForValid(task));
+        }else throw new IllegalStateException("Execute was launched");
     }
 
     @Override
     public void addTask(Task<? extends Number> task, Validator<? super Number> validator) throws IllegalStateException {
-        if (validator.isValid(task.getResult())) {
-            validTasks.add(task);
-        } else {
-            invalidTasks.add(task);
-        }
+        if (!isOn()) {
+            tasks.add(new TasksForValid(task, validator));
+        }else throw new IllegalStateException("Execute was launched");
     }
 
     public void execute() throws IllegalStateException {
-        for (Task<? extends Number> task :
-                validTasks) {
-            task.execute();
-        }
-        for (Task<? extends Number> task :
-                invalidTasks) {
-            task.execute();
-        }
+
+        tasks.stream().forEach((t) ->t.getTask().execute());
+
+        validResults = tasks.stream()
+                .filter((t) -> t.getValidator().isValid(t.getTask().getResult()))
+                .map((t) -> t.getTask().getResult())
+                .collect(Collectors.toList());
+        invalidResults = tasks.stream()
+                .filter((t) -> !t.getValidator().isValid(t.getTask().getResult()))
+                .map((t) -> t.getTask().getResult())
+                .collect(Collectors.toList());
     }
 
-    public List<Task<? extends Number>> getValidTasks() {
-        return validTasks;
-    }
-
-    public void setValidTasks(List<Task<? extends Number>> validTasks) {
-        this.validTasks = validTasks;
-    }
-
-    public List<Task<? extends Number>> getInvalidTasks() {
-        return invalidTasks;
-    }
-
-    public void setInvalidTasks(List<Task<? extends Number>> invalidTasks) {
-        this.invalidTasks = invalidTasks;
-    }
-
+    @Override
     public List<? extends Number> getValidResults() {
         return validResults;
     }
 
-    public void setValidResults(List<? extends Number> validResults) {
-        this.validResults = validResults;
-    }
-
+    @Override
     public List<? extends Number> getInvalidResults() {
         return invalidResults;
     }
 
-    public void setInvalidResults(List<? extends Number> invalidResults) {
-        this.invalidResults = invalidResults;
-    }
 }
