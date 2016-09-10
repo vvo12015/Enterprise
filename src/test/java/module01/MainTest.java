@@ -1,77 +1,59 @@
 package module01;
 
 
+import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
+import com.carrotsearch.junitbenchmarks.BenchmarkRule;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.infra.Blackhole;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
-import org.openjdk.jmh.runner.options.TimeValue;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.TreeSet;
 
 public class MainTest {
 
-    @Test
-    public void testLists() throws InterruptedException {
+        @Rule
+        public BenchmarkRule benchmarkRun = new BenchmarkRule();
 
-    }
+        public static final int _1M = 1000_000;
 
-    @Test public void
-    launchBenchmark() throws Exception {
+        private ForList forArrayList;
+        private ForList forLinkedList;
+        private ForTestCollections forHashSet;
+        private ForTestCollections forTreeSet;
 
-        Options opt = new OptionsBuilder()
-                // Specify which benchmarks to run.
-                // You can be more specific if you'd like to run only one benchmark per test.
-                .include(this.getClass().getName() + "")
-                // Set the following options as needed
-                .mode (Mode.AverageTime)
-                .timeUnit(TimeUnit.MICROSECONDS)
-                .warmupTime(TimeValue.seconds(1))
-                .warmupIterations(2)
-                .measurementTime(TimeValue.seconds(1))
-                .measurementIterations(2)
-                .threads(2)
-                .forks(1)
-                .shouldFailOnError(true)
-                .shouldDoGC(true)
-                //.jvmArgs("-XX:+UnlockDiagnosticVMOptions", "-XX:+PrintInlining")
-                //.addProfiler(WinPerfAsmProfiler.class)
-                .build();
-
-        new Runner(opt).run();
-    }
-
-    // The JMH samples are the best documentation for how to use it
-    // http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/
-    @State(Scope.Thread)
-    public static class BenchmarkState
-    {
-        List<Integer> list;
-
-        @Setup(Level.Trial) public void
-        initialize() {
-
-            Random rand = new Random();
-
-            list = new ArrayList<>();
-            for (int i = 0; i < 1000; i++) {
-                list.add (rand.nextInt());
-            }
+        @Before
+        public void init() {
+            forArrayList = new ForList(_1M, new ArrayList<>());
+            forLinkedList = new ForList(_1M, new LinkedList<>());
+            forHashSet = new ForTestCollections(_1M, new HashSet<>());
+            forTreeSet = new ForTestCollections(_1M, new TreeSet<>());
         }
-    }
 
-    @Benchmark public void
-    benchmark1 (BenchmarkState state, Blackhole bh) {
+        @Test
+        @BenchmarkOptions(benchmarkRounds = 100, warmupRounds = 1)
+        public void arrayListAdd(){
+            forArrayList.add();
+        }
 
-        List<Integer> list = state.list;
+        @Test
+        @BenchmarkOptions(benchmarkRounds = 100, warmupRounds = 1)
+        public void linkedListAdd(){
+            forLinkedList.add();
+        }
 
-        for (int i = 0; i < 1000; i++)
-            bh.consume (list.get (i));
-    }
+        @Test
+        @BenchmarkOptions(benchmarkRounds = 100, warmupRounds = 1)
+        public void hashSetAdd(){
+            forHashSet.add();
+        }
+
+        @Test
+        @BenchmarkOptions(benchmarkRounds = 100, warmupRounds = 1)
+        public void treeSetAdd(){
+            forTreeSet.add();
+        }
 
 }
