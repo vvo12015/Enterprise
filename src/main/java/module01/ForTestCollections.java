@@ -12,11 +12,12 @@ public class ForTestCollections {
     public ForTestCollections(int number, Collection<Integer> collection) {
         this.number = number;
         this.collection = collection;
+        populate();
     }
 
     public  void populate(){
         for (int i = 0; i < number; i++) {
-            collection.add(random.nextInt(number));
+            collection.add(i);
         }
     }
 
@@ -25,10 +26,14 @@ public class ForTestCollections {
     }
 
     public void remove(){
-        collection.remove(random.nextInt(number));
+        collection.remove(0);
     }
 
     public boolean contains(){
         return collection.contains(random.nextInt(number));
+    }
+
+    public void clear(){
+        collection.clear();
     }
 }

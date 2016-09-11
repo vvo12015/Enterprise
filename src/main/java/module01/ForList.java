@@ -10,15 +10,16 @@ public class ForList extends ForTestCollections{
 
     public ForList(int number, List list){
         super(number, list);
-        iterator = list.listIterator();
-        populate();
+        this.list = list;
     }
 
-    public Integer get() {
-        return list.get(random.nextInt(number));
+    public void get() {
+        list.get( random.nextInt(number)-1);
     }
 
     public boolean iteratorAdd(){
+        iterator = list.listIterator();
+
         for (int i = 0; i < random.nextInt(number); i++) {
             iterator.next();
         }
@@ -27,6 +28,8 @@ public class ForList extends ForTestCollections{
     }
 
     public boolean iteratorRemove(){
+        iterator = list.listIterator();
+
         for (int i = 0; i < random.nextInt(number); i++) {
             iterator.next();
         }
