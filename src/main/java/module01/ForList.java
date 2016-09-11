@@ -26,7 +26,7 @@ public class ForList extends ForTestCollections{
         iterator.add(random.nextInt(number));
         return true;
     }
-    //remove element
+
     public boolean iteratorRemove(){
         iterator = list.listIterator();
 

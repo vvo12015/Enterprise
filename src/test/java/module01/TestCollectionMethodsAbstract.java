@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.*;
-
+//abstract class for test methods of collections
 @RunWith(Parameterized.class)
 public abstract class TestCollectionMethodsAbstract implements Size{
     static ForList forArrayList;

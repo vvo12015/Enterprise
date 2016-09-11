@@ -2,7 +2,7 @@ package module01;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import org.junit.Test;
-
+//tests populate
 public class TestCollectionPopulate extends TestCollectionMethodsAbstract {
     
     public TestCollectionPopulate(int number) {

@@ -3,6 +3,7 @@ package module01;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+//run all tests
 @Suite.SuiteClasses({TestCollectionAdd.class, TestCollectionGet.class, TestCollectionContains.class,
                         TestCollectionPopulate.class, TestCollectionRemove.class,
                         TestCollectionIteratorAdd.class, TestCollectionIteratorRemove.class})

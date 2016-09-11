@@ -3,7 +3,7 @@ package module01;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import org.junit.Test;
-
+//tests add
 public class TestCollectionAdd extends TestCollectionMethodsAbstract implements Size{
 
     public TestCollectionAdd(int number) {

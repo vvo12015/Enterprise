@@ -2,7 +2,7 @@ package module01;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import org.junit.Test;
-
+//test add iterator
 public class TestCollectionIteratorAdd extends TestCollectionMethodsAbstract {
 
     public TestCollectionIteratorAdd(int number) {

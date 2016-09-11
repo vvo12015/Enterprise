@@ -2,7 +2,7 @@ package module01;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import org.junit.Test;
-
+//test remove iterator
 public class TestCollectionIteratorRemove extends TestCollectionMethodsAbstract {
     
     public TestCollectionIteratorRemove(int number) {

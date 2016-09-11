@@ -2,7 +2,7 @@ package module01;
 
 import com.carrotsearch.junitbenchmarks.BenchmarkOptions;
 import org.junit.Test;
-
+//test contains
 public class TestCollectionContains extends TestCollectionMethodsAbstract{
 
     public TestCollectionContains(int number) {
