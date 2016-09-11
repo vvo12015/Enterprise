@@ -20,7 +20,7 @@ public class ForTestCollections {
             collection.add(i);
         }
     }
-
+    //add element
     public void add(){
         collection.add(random.nextInt(number));
     }
