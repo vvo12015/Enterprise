@@ -1,13 +1,16 @@
-package test.multithreading;
+package traning.multithreading;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SynchronizedExample {
 
-    private int counter;
+    private AtomicInteger counter = new AtomicInteger(0);
+//    private int counter = 0;
+
     private final Object lock = new Object();
 
 
@@ -15,8 +18,8 @@ public class SynchronizedExample {
         new SynchronizedExample().test();
     }
 
-    public synchronized int increment(){
-            return counter++;
+    public int increment(){
+            return counter.incrementAndGet();
     }
 
     public void test() throws InterruptedException {

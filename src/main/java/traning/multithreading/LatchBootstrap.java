@@ -1,4 +1,4 @@
-package test.multithreading;
+package traning.multithreading;
 
 public class LatchBootstrap {
 

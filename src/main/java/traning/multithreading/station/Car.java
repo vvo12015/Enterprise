@@ -1,4 +1,4 @@
-package test.multithreading.station;
+package traning.multithreading.station;
 
 public class Car {
 

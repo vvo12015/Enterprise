@@ -1,5 +1,6 @@
 package module01;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -35,5 +36,16 @@ public class ForList extends ForTestCollections{
         }
         iterator.remove();
         return true;
+    }
+
+    public static void main(String[] args) {
+        ForList forList = new ForList(10_000, new ArrayList<>());
+        forList.add();
+        forList.get();
+        forList.contains();
+        forList.populate();
+        forList.iteratorAdd();
+        forList.iteratorRemove();
+        System.out.println("All methods are success");
     }
 }

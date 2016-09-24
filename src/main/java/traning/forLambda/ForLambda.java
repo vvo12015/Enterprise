@@ -1,4 +1,4 @@
-package test.forLambda;
+package traning.forLambda;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

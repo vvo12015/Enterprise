@@ -1,6 +1,6 @@
 package module03;
 
-import test.multithreading.station.MySemaphoreImp;
+import traning.multithreading.station.MySemaphoreImp;
 
 public class SemaphoreExample {
     public static void main(String[] args) {

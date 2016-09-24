@@ -1,4 +1,4 @@
-package test.multithreading;
+package traning.multithreading;
 
 import java.util.Random;
 
